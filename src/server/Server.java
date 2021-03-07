@@ -27,10 +27,10 @@ public class Server {
 		try
 		{
 			bw = new BufferedWriter(new FileWriter(log));
-			bw.write("Fecha inicio: " + tiempo);
-			bw.newLine();
-			bw.flush();
-			
+			toLog(bw, "Fecha inicio: " + tiempo);
+
+			socket = new ServerSocket(PUERTO);
+			socket.setReceiveBufferSize(BUFFER);
 			
 		}
 		catch(IOException io)
@@ -40,6 +40,17 @@ public class Server {
 		catch(Exception e)
 		{
 			
+		}
+	}
+	
+	public static synchronized void toLog(BufferedWriter bw, String s)
+	{
+		try {
+			bw.write(s);
+			bw.newLine();
+			bw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
