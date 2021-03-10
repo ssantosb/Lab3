@@ -83,10 +83,10 @@ public class Server {
 						System.out.println("Conexión exitosa con el cliente: " + currentClients);
 						System.out.println("El cliente " + currentClients + " está esperando el archivo");
 					}
-//					else
-//					{
-//						throw new Exception("La conexión con el cliente " + currentClients + " no fue exitosa");
-//					}
+					else
+					{
+						throw new Exception("La conexión con el cliente " + currentClients + " no fue exitosa");
+					}
 					dOut.write(currentClients);
 					toLog(bw, "Cliente " + currentClients + "conectado");
 				}
@@ -99,7 +99,8 @@ public class Server {
 			toLog(bw, "Inicio de la transferencia");
 			for(int i = 0; i < clients; i++)
 			{
-				//inicializar y lanzar threads
+				ConnectionThread thread = new ConnectionThread(socketClients[i], file, bw, i+1);
+				thread.start();
 			}
 		}
 		catch(Exception e)
