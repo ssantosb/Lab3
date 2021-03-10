@@ -15,8 +15,8 @@ import java.util.Scanner;
 public class Server {
 	
 	public final static int PUERTO = 21; //Se utiliza FTP
-	public final static String ARCHIVO100 = "Archivo100MB";
-	public final static String ARCHIVO250 = "Archivo250MB";
+	public final static String ARCHIVO100 = "Archivo100MB.zip";
+	public final static String ARCHIVO250 = "Archivo250MB.zip";
 	public final static int BUFFER = 64000;
 	public final static int MIN_CON = 25;
 	public static BufferedWriter bw;
@@ -26,9 +26,20 @@ public class Server {
 		String tiempo = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(Calendar.getInstance().getTime());
 		File log = new File("./logs/" + tiempo + ".txt");
 		ServerSocket socket;
+		System.out.println("Soy yo");
+		System.out.println(System.getProperty("user.dir"));
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(log);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try
 		{
-			bw = new BufferedWriter(new FileWriter(log));
+			System.out.println("Soy yo 2");
+
+			bw = new BufferedWriter(fw);
 			toLog(bw, "Fecha inicio: " + tiempo);
 
 			socket = new ServerSocket(PUERTO);
@@ -105,6 +116,7 @@ public class Server {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			System.err.println("Ha sucedido un error en la ejecución. Revise el log.");
 			toLog(bw, "ERROR: " + e.getMessage());
 		}

@@ -20,7 +20,7 @@ import java.util.Scanner;
 
 public class Cliente {
 
-	public final static String LOG = "data/logs/";
+	public final static String LOG = "logs/";
 	
 	private static final String DESCARGA = "data/descargas/";
 	
